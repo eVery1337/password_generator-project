@@ -10,9 +10,19 @@ def home(request):
 def password(request):
     characters = list('abcdefghijklmnopqrstuvwxyz')
     upperCharacters = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+    digits = list('123456789')
     symbols = list('!"#$%&')
-    length = 10
+    length = int(request.GET.get('length', 1))
     password = ''
+
+    if request.GET.get('uppercase'):
+        characters.extend(upperCharacters)
+
+    if request.GET.get('digits'):
+        characters.extend(digits)
+
+    if request.GET.get('special_symbols'):
+        characters.extend(symbols)
 
     for x in range(length):
         password+=random.choice(characters)
